@@ -42,6 +42,23 @@ namespace Benday.YamlJsonUtil.UnitTests
         }
 
         [TestMethod]
+        public void ParsePropertyForArray()
+        {
+            // arrange
+            var expectedName = "Message";
+            var expectedValue = string.Empty;
+            var expectedIsArrayValue = false;
+
+            // act
+            _SystemUnderTest = new YamlLine("Message:");
+
+            // assert
+            Assert.AreEqual<string>(expectedName, SystemUnderTest.Name, "Property name was wrong.");
+            Assert.AreEqual<string>(expectedValue, SystemUnderTest.Value, "Property value was wrong.");
+            Assert.AreEqual<bool>(expectedIsArrayValue, SystemUnderTest.IsArrayValue, "IsArrayValue value was wrong");
+        }
+
+        [TestMethod]
         public void ParseArrayValue()
         {
             // arrange
