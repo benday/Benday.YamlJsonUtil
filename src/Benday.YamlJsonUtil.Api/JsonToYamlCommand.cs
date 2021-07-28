@@ -56,8 +56,6 @@ namespace Benday.YamlJsonUtil.Api
                     builder.AppendLine();
 
                     WriteArrayValues(builder, prop.Value.EnumerateArray());
-
-                    builder.DecreaseIndent();
                 }
             }
         }
@@ -81,16 +79,7 @@ namespace Benday.YamlJsonUtil.Api
         {
             AppendPropertyName(builder, prop);
 
-            if (prop.Value.ValueKind == JsonValueKind.String)
-            {
-                builder.Append("\"");
-                builder.Append(prop.Value.ToString());
-                builder.Append("\"");
-            }
-            else
-            {
-                builder.Append(prop.Value.ToString());
-            }
+            builder.Append(prop.Value.ToString());
         }
     }
 }
