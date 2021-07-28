@@ -6,7 +6,7 @@ namespace Benday.YamlJsonUtil.Api
 {
     public class JsonToYamlCommand
     {
-        public void ConvertJsonToYaml(string jsonAsString)
+        public void Convert(string jsonAsString)
         {
             if (jsonAsString == null)
             {

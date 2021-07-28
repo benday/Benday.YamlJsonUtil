@@ -1,0 +1,11 @@
+Message: hi!
+Values: 
+  Property1: test
+  Property2: 1234
+  Property3: 
+  - one
+  - two
+  - three
+  Property4: 
+    Property4a: asdf
+    Property4b: qwer

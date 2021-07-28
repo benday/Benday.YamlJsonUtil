@@ -5,12 +5,23 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": ".NET Core Launch (console)",
+            "name": "yaml to json",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/src/Benday.YamlJsonUtil.ConsoleUi/bin/Debug/net6.0/Benday.YamlJsonUtil.ConsoleUi.dll",
-            "args": [],
+            "program": "${workspaceFolder}/src/Benday.YamlJsonUtil.ConsoleUi/bin/Debug/net5.0/Benday.YamlJsonUtil.ConsoleUi.dll",
+            "args": ["yaml-to-json"],
+            "cwd": "${workspaceFolder}/src/Benday.YamlJsonUtil.ConsoleUi",
+            "console": "internalConsole",
+            "stopAtEntry": false
+        },
+        {
+            "name": "json to yaml",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "${workspaceFolder}/src/Benday.YamlJsonUtil.ConsoleUi/bin/Debug/net5.0/Benday.YamlJsonUtil.ConsoleUi.dll",
+            "args": ["json-to-yaml"],
             "cwd": "${workspaceFolder}/src/Benday.YamlJsonUtil.ConsoleUi",
             "console": "internalConsole",
             "stopAtEntry": false
