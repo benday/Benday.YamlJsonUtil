@@ -50,8 +50,26 @@ namespace Benday.YamlJsonUtil.Api
 
                     builder.DecreaseIndent();
                 }
+                else if (prop.Value.ValueKind == JsonValueKind.Array)
+                {
+                    AppendPropertyName(builder, prop);
+                    builder.AppendLine();
+
+                    WriteArrayValues(builder, prop.Value.EnumerateArray());
+
+                    builder.DecreaseIndent();
+                }
             }
-        }        
+        }
+
+        private void WriteArrayValues(IndentStringBuilder builder, JsonElement.ArrayEnumerator arrayEnumerator)
+        {
+            foreach (var item in arrayEnumerator)
+            {
+                builder.Append("- ");
+                builder.AppendLine(item.ToString());
+            }
+        }
 
         private void AppendPropertyName(IndentStringBuilder builder, JsonProperty prop)
         {
