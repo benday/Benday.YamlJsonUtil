@@ -30,6 +30,7 @@ namespace Benday.YamlJsonUtil.UnitTests
             // arrange
             var expectedName = "Message";
             var expectedValue = "hi!";
+            var expectedIsArrayValue = false;
 
             // act
             _SystemUnderTest = new YamlLine("Message: hi!");
@@ -37,6 +38,7 @@ namespace Benday.YamlJsonUtil.UnitTests
             // assert
             Assert.AreEqual<string>(expectedName, SystemUnderTest.PropertyName, "Property name was wrong.");
             Assert.AreEqual<string>(expectedValue, SystemUnderTest.PropertyValue, "Property value was wrong.");
+            Assert.AreEqual<bool>(expectedIsArrayValue, SystemUnderTest.IsArrayValue, "IsArrayValue value was wrong");
         }
 
     }

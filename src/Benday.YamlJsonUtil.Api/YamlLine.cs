@@ -29,6 +29,6 @@ namespace Benday.YamlJsonUtil.Api
 
         public string PropertyName { get; set; }
         public string PropertyValue { get; set; }
-
+        public bool IsArrayValue { get; set; }
     }
 }
