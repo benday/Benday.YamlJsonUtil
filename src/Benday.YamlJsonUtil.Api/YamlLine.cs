@@ -7,28 +7,41 @@ namespace Benday.YamlJsonUtil.Api
         private string _line;
         public YamlLine(string line)
         {
-            _line = line;
+            _line = line ?? throw new ArgumentNullException(nameof(line), "Argument cannot be null.");
 
             Populate();
         }
 
         private void Populate()
         {
-            var tokens = _line.Split(":");
+            var trimmed = _line.Trim();
 
-            if (tokens.Length == 1)
+            if (trimmed.StartsWith("- "))
             {
-                PropertyName = tokens[0].Trim();
+                IsArrayValue = true;
+                Name = null;
+                Value = trimmed[2..];
             }
-            else if (tokens.Length == 2)
+            else
             {
-                PropertyName = tokens[0].Trim();
-                PropertyValue = tokens[1].Trim();
+                IsArrayValue = false;
+
+                var tokens = _line.Split(":");
+
+                if (tokens.Length == 1)
+                {
+                    Name = tokens[0].Trim();
+                }
+                else if (tokens.Length == 2)
+                {
+                    Name = tokens[0].Trim();
+                    Value = tokens[1].Trim();
+                }
             }
         }
 
-        public string PropertyName { get; set; }
-        public string PropertyValue { get; set; }
+        public string Name { get; set; }
+        public string Value { get; set; }
         public bool IsArrayValue { get; set; }
     }
 }
