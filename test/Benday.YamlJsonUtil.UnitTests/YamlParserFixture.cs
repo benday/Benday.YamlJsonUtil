@@ -203,8 +203,8 @@ AnotherMessage: hola!
             Assert.AreEqual<int>(expectedRootLevelItems, actual.Children.Count, "Child count was wrong.");
 
             AssertYamlElement(actual.Children, 0, "Message", 0, 0);
-            AssertYamlElement(actual.Children, 0, "Message", 1, 5);
-            AssertYamlElement(actual.Children, 0, "Message", 19, 0);
+            AssertYamlElement(actual.Children, 1, "Values", 1, 5);
+            AssertYamlElement(actual.Children, 2, "AnotherMessage", 19, 0);
         }
 
         private void AssertYamlElement(List<YamlElement> actuals, int index, string expectedName, int expectedLineNumber, int expectedChildCount)

@@ -66,7 +66,9 @@ namespace Benday.YamlJsonUtil.Api
 
         public YamlDocument GetYamlDocument()
         {
-            throw new NotImplementedException();
+            var doc = new YamlDocument(_lines);
+
+            return doc;
         }
 
     }
