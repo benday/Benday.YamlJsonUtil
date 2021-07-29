@@ -46,5 +46,6 @@ namespace Benday.YamlJsonUtil.Api
         public string Value { get; private set; }
         public bool IsArrayValue { get; private set; }
         public bool HasValue { get; private set; }
+        public int IndentCount { get; private set; }
     }
 }

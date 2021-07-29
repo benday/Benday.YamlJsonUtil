@@ -27,59 +27,79 @@ namespace Benday.YamlJsonUtil.UnitTests
         [TestMethod]
         public void ParseProperty()
         {
-            // arrange
+            var line = "Message: hi!";
             var expectedName = "Message";
             var expectedValue = "hi!";
             var expectedIsArrayValue = false;
             var expectedHasValue = true;
+            var expectedIndentValue = 0;
 
-            // act
-            _SystemUnderTest = new YamlLine("Message: hi!");
-
-            // assert
-            Assert.AreEqual<string>(expectedName, SystemUnderTest.Name, "Property name was wrong.");
-            Assert.AreEqual<string>(expectedValue, SystemUnderTest.Value, "Property value was wrong.");
-            Assert.AreEqual<bool>(expectedIsArrayValue, SystemUnderTest.IsArrayValue, "IsArrayValue value was wrong");
-            Assert.AreEqual<bool>(expectedHasValue, SystemUnderTest.HasValue, "HasValue value was wrong");
+            ParseAndAssertLine(
+                line,
+                expectedName,
+                expectedValue, 
+                expectedIsArrayValue,
+                expectedHasValue,
+                expectedIndentValue);
         }
 
         [TestMethod]
         public void ParsePropertyForArray()
         {
-            // arrange
+            var line = "Message:";
             var expectedName = "Message";
             var expectedValue = string.Empty;
             var expectedIsArrayValue = false;
             var expectedHasValue = false;
+            var expectedIndentValue = 0;
 
-            // act
-            _SystemUnderTest = new YamlLine("Message:");
-
-            // assert
-            Assert.AreEqual<string>(expectedName, SystemUnderTest.Name, "Property name was wrong.");
-            Assert.AreEqual<string>(expectedValue, SystemUnderTest.Value, "Property value was wrong.");
-            Assert.AreEqual<bool>(expectedIsArrayValue, SystemUnderTest.IsArrayValue, "IsArrayValue value was wrong");
-            Assert.AreEqual<bool>(expectedHasValue, SystemUnderTest.HasValue, "HasValue value was wrong");
+            ParseAndAssertLine(
+                line,
+                expectedName,
+                expectedValue, 
+                expectedIsArrayValue,
+                expectedHasValue,
+                expectedIndentValue);
         }
 
         [TestMethod]
         public void ParseArrayValue()
         {
-            // arrange
+            var line = "- one";
             string expectedName = null;
             var expectedValue = "one";
             var expectedIsArrayValue = true;
             var expectedHasValue = true;
+            var expectedIndentValue = 0;
 
+            ParseAndAssertLine(
+                line,
+                expectedName,
+                expectedValue, 
+                expectedIsArrayValue,
+                expectedHasValue,
+                expectedIndentValue);
+        }
+
+        private void ParseAndAssertLine(
+            string line,
+            string expectedName, 
+            string expectedValue,
+            bool expectedIsArrayValue, 
+            bool expectedHasValue,
+            int expectedIndentValue)
+        {
+            // arrange
+            
             // act
-            _SystemUnderTest = new YamlLine("- one");
+            _SystemUnderTest = new YamlLine(line);
 
             // assert
             Assert.AreEqual<string>(expectedName, SystemUnderTest.Name, "Property name was wrong.");
             Assert.AreEqual<string>(expectedValue, SystemUnderTest.Value, "Property value was wrong.");
             Assert.AreEqual<bool>(expectedIsArrayValue, SystemUnderTest.IsArrayValue, "IsArrayValue value was wrong");
             Assert.AreEqual<bool>(expectedHasValue, SystemUnderTest.HasValue, "HasValue value was wrong");
+            Assert.AreEqual<int>(expectedIndentValue, SystemUnderTest.IndentCount, "IndentCount value was wrong");
         }
-
     }
 }
