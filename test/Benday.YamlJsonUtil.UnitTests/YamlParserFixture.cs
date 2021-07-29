@@ -1,5 +1,6 @@
 using Benday.YamlJsonUtil.Api;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Benday.YamlJsonUtil.UnitTests
@@ -181,9 +182,52 @@ Values:
     - one
     - two
     - three
+AnotherMessage: hola!
 ";
 
             return yaml;
+        }
+
+        [TestMethod]
+        public void GetYamlDocument()
+        {
+            // arrange
+            var yaml = GetYamlWithThreeArrays();
+            _SystemUnderTest = new YamlParser(yaml);
+            var expectedRootLevelItems = 3;
+
+            // act
+            var actual = SystemUnderTest.GetYamlDocument();
+
+            // assert
+            Assert.AreEqual<int>(expectedRootLevelItems, actual.Children.Count, "Child count was wrong.");
+
+            AssertYamlElement(actual.Children, 0, "Message", 0, 0);
+            AssertYamlElement(actual.Children, 0, "Message", 1, 5);
+            AssertYamlElement(actual.Children, 0, "Message", 19, 0);
+        }
+
+        private void AssertYamlElement(List<YamlElement> actuals, int index, string expectedName, int expectedLineNumber, int expectedChildCount)
+        {
+            var actual = actuals[index];
+
+            AssertYamlElement(actual, expectedName, expectedLineNumber, expectedChildCount);
+        }
+
+        private void AssertYamlElement(YamlElement actual, string expectedName, int expectedLineNumber, int expectedChildCount)
+        {
+            Assert.AreEqual<string>(expectedName, actual.Line.Name, "Name");
+            Assert.AreEqual<int>(expectedLineNumber, actual.Line.LineNumber, "Line number");
+            Assert.AreEqual<int>(expectedChildCount, actual.Children.Count, "Child count");
+
+            if (expectedChildCount == 0)
+            {
+                Assert.IsFalse(actual.HasChildren, "HasChildren was wrong.");
+            }
+            else
+            {
+                Assert.IsTrue(actual.HasChildren, "HasChildren was wrong.");
+            }
         }
     }
 }

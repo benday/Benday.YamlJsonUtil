@@ -4,7 +4,7 @@ using System.IO;
 
 namespace Benday.YamlJsonUtil.Api
 {
-    public class YamlParser
+    public partial class YamlParser
     {
         private List<YamlLine> _lines;
         public YamlParser(string yaml)
@@ -63,5 +63,11 @@ namespace Benday.YamlJsonUtil.Api
                 lineNumber++;
             }
         }
+
+        public YamlDocument GetYamlDocument()
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }
