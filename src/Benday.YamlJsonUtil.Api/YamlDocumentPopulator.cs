@@ -71,9 +71,13 @@ namespace Benday.YamlJsonUtil.Api
                     }
                 }
 
-                if (_currentParent == null)
+                if (_currentParent == null && Current.Line.IndentCount == 0)
                 {
-                    throw new InvalidOperationException($"Nope.");
+                    _currentParent = _doc;
+                }
+                else if (_currentParent == null)
+                {
+                    throw new InvalidOperationException($"Something went wrong.");
                 }
                 else
                 {

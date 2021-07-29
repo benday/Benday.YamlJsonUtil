@@ -54,10 +54,18 @@ namespace Benday.YamlJsonUtil.Api
 
             while (line != null)
             {
-                var temp = new YamlLine(line);
+                if (string.IsNullOrWhiteSpace(line) == true ||
+                    line.TrimStart().StartsWith("#") == true)
+                {
+                    // skip this
+                }
+                else
+                {
+                    var temp = new YamlLine(line);
 
-                _lines.Add(temp);
-                temp.LineNumber = lineNumber;
+                    _lines.Add(temp);
+                    temp.LineNumber = lineNumber;
+                }
 
                 line = reader.ReadLine();
                 lineNumber++;

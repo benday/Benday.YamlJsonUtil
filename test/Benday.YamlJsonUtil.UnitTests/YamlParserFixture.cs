@@ -29,6 +29,21 @@ namespace Benday.YamlJsonUtil.UnitTests
         }
 
         [TestMethod]
+        public void Parse_RemovesCommentsAndBlankLines()
+        {
+            // arrange
+            var yaml = GetYamlWithCommentsAndBlankLines();
+            var expectedLineCount = 7;
+
+            // act
+            _SystemUnderTest = new YamlParser(yaml);
+
+            // assert
+            PrintLines();
+            Assert.AreEqual<int>(expectedLineCount, SystemUnderTest.Lines.Count, "line count was wrong");
+        }
+
+        [TestMethod]
         public void ParsePopulatesStartsOfArray_NoArrays()
         {
             // arrange
@@ -115,6 +130,24 @@ namespace Benday.YamlJsonUtil.UnitTests
             Assert.AreEqual<int>(expectedLineNumberForArray1, actualArrayStarts[1].LineNumber, "Array start 1 line number is wrong");
             Assert.AreEqual<int>(expectedLineNumberForArray2, actualArrayStarts[2].LineNumber, "Array start 2 line number is wrong");
         }
+
+        public string GetYamlWithCommentsAndBlankLines()
+        {
+            var yaml = @"# this is a comment
+              # this is a comment with leading spaces
+Message: hi!
+
+Values: 
+  Property1: test
+  Property2: 1234
+  Property4: 
+    Property4a: asdf
+    Property4b: qwer
+";
+
+            return yaml;
+        }
+
 
         private string GetYamlWithNoArrays()
         {
@@ -234,7 +267,7 @@ AnotherMessage: hola!
 
                 Console.Write(lineText);
 
-                var lineTextWithPaddingLen = 40;
+                var lineTextWithPaddingLen = 50;
                 var requiredPaddingLen = lineTextWithPaddingLen - lineText.Length;
                 var padding = new string(' ', requiredPaddingLen);
 

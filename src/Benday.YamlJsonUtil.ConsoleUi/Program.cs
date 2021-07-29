@@ -56,7 +56,7 @@ namespace Benday.YamlJsonUtil.ConsoleUi
 
         private static string ReadSampleYamlAsString()
         {
-            // return File.ReadAllText("/Users/benday/code/temp/Benday.YamlJsonUtil/src/Benday.YamlJsonUtil.ConsoleUi/sample.yaml");
+            // return File.ReadAllText("/Users/benday/code/repos/Cocktails2021/azure-pipelines.yml");
             return File.ReadAllText("sample.yaml");
         }
     }
