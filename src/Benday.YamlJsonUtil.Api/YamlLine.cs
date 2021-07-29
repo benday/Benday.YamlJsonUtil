@@ -38,10 +38,13 @@ namespace Benday.YamlJsonUtil.Api
                     Value = tokens[1].Trim();
                 }
             }
+
+            HasValue = !string.IsNullOrWhiteSpace(Value);
         }
 
-        public string Name { get; set; }
-        public string Value { get; set; }
-        public bool IsArrayValue { get; set; }
+        public string Name { get; private set; }
+        public string Value { get; private set; }
+        public bool IsArrayValue { get; private set; }
+        public bool HasValue { get; private set; }
     }
 }

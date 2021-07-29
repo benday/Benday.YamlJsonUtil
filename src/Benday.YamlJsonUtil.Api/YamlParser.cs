@@ -17,6 +17,9 @@ namespace Benday.YamlJsonUtil.Api
             PopulateLines(yaml);
         }
 
+
+        public List<YamlLine> Lines { get => _lines; }
+
         private void PopulateLines(string yaml)
         {
             using var reader = new StringReader(yaml);

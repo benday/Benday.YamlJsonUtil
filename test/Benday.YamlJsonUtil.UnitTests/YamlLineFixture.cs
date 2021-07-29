@@ -31,6 +31,7 @@ namespace Benday.YamlJsonUtil.UnitTests
             var expectedName = "Message";
             var expectedValue = "hi!";
             var expectedIsArrayValue = false;
+            var expectedHasValue = true;
 
             // act
             _SystemUnderTest = new YamlLine("Message: hi!");
@@ -39,6 +40,7 @@ namespace Benday.YamlJsonUtil.UnitTests
             Assert.AreEqual<string>(expectedName, SystemUnderTest.Name, "Property name was wrong.");
             Assert.AreEqual<string>(expectedValue, SystemUnderTest.Value, "Property value was wrong.");
             Assert.AreEqual<bool>(expectedIsArrayValue, SystemUnderTest.IsArrayValue, "IsArrayValue value was wrong");
+            Assert.AreEqual<bool>(expectedHasValue, SystemUnderTest.HasValue, "HasValue value was wrong");
         }
 
         [TestMethod]
@@ -48,6 +50,7 @@ namespace Benday.YamlJsonUtil.UnitTests
             var expectedName = "Message";
             var expectedValue = string.Empty;
             var expectedIsArrayValue = false;
+            var expectedHasValue = false;
 
             // act
             _SystemUnderTest = new YamlLine("Message:");
@@ -56,6 +59,7 @@ namespace Benday.YamlJsonUtil.UnitTests
             Assert.AreEqual<string>(expectedName, SystemUnderTest.Name, "Property name was wrong.");
             Assert.AreEqual<string>(expectedValue, SystemUnderTest.Value, "Property value was wrong.");
             Assert.AreEqual<bool>(expectedIsArrayValue, SystemUnderTest.IsArrayValue, "IsArrayValue value was wrong");
+            Assert.AreEqual<bool>(expectedHasValue, SystemUnderTest.HasValue, "HasValue value was wrong");
         }
 
         [TestMethod]
@@ -65,6 +69,7 @@ namespace Benday.YamlJsonUtil.UnitTests
             string expectedName = null;
             var expectedValue = "one";
             var expectedIsArrayValue = true;
+            var expectedHasValue = true;
 
             // act
             _SystemUnderTest = new YamlLine("- one");
@@ -73,6 +78,7 @@ namespace Benday.YamlJsonUtil.UnitTests
             Assert.AreEqual<string>(expectedName, SystemUnderTest.Name, "Property name was wrong.");
             Assert.AreEqual<string>(expectedValue, SystemUnderTest.Value, "Property value was wrong.");
             Assert.AreEqual<bool>(expectedIsArrayValue, SystemUnderTest.IsArrayValue, "IsArrayValue value was wrong");
+            Assert.AreEqual<bool>(expectedHasValue, SystemUnderTest.HasValue, "HasValue value was wrong");
         }
 
     }
