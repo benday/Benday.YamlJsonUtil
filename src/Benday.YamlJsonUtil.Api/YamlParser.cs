@@ -15,8 +15,30 @@ namespace Benday.YamlJsonUtil.Api
             }
 
             PopulateLines(yaml);
+            PopulateArrayStarts();
         }
 
+        private void PopulateArrayStarts()
+        {
+            var reversed = new List<YamlLine>(_lines);
+            reversed.Reverse();
+
+            bool isSearchingForStartOfArray = false;
+
+            foreach (var line in reversed)
+            {
+                if (line.IsArrayValue == true)
+                {
+                    isSearchingForStartOfArray = true;
+                }
+
+                if (isSearchingForStartOfArray == true && line.IsArrayValue == false)
+                {
+                    line.IsStartOfArray = true;
+                    isSearchingForStartOfArray = false;
+                }
+            }
+        }
 
         public List<YamlLine> Lines { get => _lines; }
 
@@ -28,11 +50,17 @@ namespace Benday.YamlJsonUtil.Api
 
             var line = reader.ReadLine();
 
+            var lineNumber = 0;
+
             while (line != null)
             {
-                _lines.Add(new YamlLine(line));
+                var temp = new YamlLine(line);
+
+                _lines.Add(temp);
+                temp.LineNumber = lineNumber;
 
                 line = reader.ReadLine();
+                lineNumber++;
             }
         }
     }
