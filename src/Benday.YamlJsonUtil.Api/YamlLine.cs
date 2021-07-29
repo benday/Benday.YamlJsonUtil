@@ -4,7 +4,7 @@ namespace Benday.YamlJsonUtil.Api
 {
     public class YamlLine
     {
-        private string _line;
+        private readonly string _line;
         public YamlLine(string line)
         {
             _line = line ?? throw new ArgumentNullException(nameof(line), "Argument cannot be null.");
@@ -14,6 +14,8 @@ namespace Benday.YamlJsonUtil.Api
 
         private void Populate()
         {
+            PopulateIndent();
+
             var trimmed = _line.Trim();
 
             if (trimmed.StartsWith("- "))
@@ -40,6 +42,22 @@ namespace Benday.YamlJsonUtil.Api
             }
 
             HasValue = !string.IsNullOrWhiteSpace(Value);
+        }
+
+        private void PopulateIndent()
+        {
+            var startTrimmed = _line.TrimStart();
+
+            if (startTrimmed == _line)
+            {
+                IndentCount = 0;
+            }
+            else
+            {
+                var amountTrimmed = _line.Length - startTrimmed.Length;
+
+                IndentCount = amountTrimmed / 2;
+            }
         }
 
         public string Name { get; private set; }
