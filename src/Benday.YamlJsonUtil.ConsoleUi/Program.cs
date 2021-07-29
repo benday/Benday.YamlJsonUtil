@@ -24,20 +24,28 @@ namespace Benday.YamlJsonUtil.ConsoleUi
 
         private static void JsonToYaml()
         {
+            Console.WriteLine($"JsonToYaml()");
+
             var command = new JsonToYamlCommand();
 
-            var jsonAsString = ReadAppSettingsJsonAsString();
+            var input = ReadAppSettingsJsonAsString();
 
-            command.Convert(jsonAsString);
+            command.Convert(input);
         }
 
         private static void YamlToJson()
         {
+            Console.WriteLine($"YamlToJson()");
+
             var command = new YamlToJsonCommand();
 
-            var jsonAsString = ReadSampleYamlAsString();
+            var input = ReadSampleYamlAsString();
 
-            command.Convert(jsonAsString);
+            var output = command.Convert(input);
+
+            Console.WriteLine($"Output length: {output.Length}");
+
+            Console.WriteLine(output);
         }
 
         private static string ReadAppSettingsJsonAsString()
