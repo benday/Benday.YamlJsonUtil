@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 namespace Benday.YamlJsonUtil.Api
 {
-    public class YamlElement
+    public class YamlElement : IYamlParent
     {
         public YamlElement(YamlLine line)
         {
@@ -26,7 +26,16 @@ namespace Benday.YamlJsonUtil.Api
             }
         }
 
+        public int LineNumber
+        {
+            get 
+            {
+                return Line.LineNumber;
+            }
+        }
+
         public YamlLine Line { get; private set; }
         public List<YamlElement> Children { get; private set; }
+        public YamlElement Parent { get; set; }
     }
 }

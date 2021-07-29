@@ -60,6 +60,13 @@ namespace Benday.YamlJsonUtil.Api
             }
         }
 
+        public string RawValue
+        {
+            get
+            {
+                return _line;
+            }
+        }
         public string Name { get; private set; }
         public string Value { get; private set; }
         public bool IsArrayValue { get; private set; }

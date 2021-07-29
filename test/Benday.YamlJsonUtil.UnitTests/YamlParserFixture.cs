@@ -1,5 +1,6 @@
 using Benday.YamlJsonUtil.Api;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -194,17 +195,58 @@ AnotherMessage: hola!
             // arrange
             var yaml = GetYamlWithThreeArrays();
             _SystemUnderTest = new YamlParser(yaml);
+            PrintLines();
             var expectedRootLevelItems = 3;
 
             // act
             var actual = SystemUnderTest.GetYamlDocument();
 
             // assert
-            Assert.AreEqual<int>(expectedRootLevelItems, actual.Children.Count, "Child count was wrong.");
+            Assert.AreEqual<int>(expectedRootLevelItems,
+                actual.Children.Count, "Child count was wrong.");
 
             AssertYamlElement(actual.Children, 0, "Message", 0, 0);
             AssertYamlElement(actual.Children, 1, "Values", 1, 5);
             AssertYamlElement(actual.Children, 2, "AnotherMessage", 19, 0);
+        }
+
+        private void PrintLines()
+        {
+            Console.WriteLine($"*************************");
+            Console.WriteLine($"Line count: {SystemUnderTest.Lines.Count}");
+
+            string lineText;
+
+            foreach (var line in SystemUnderTest.Lines)
+            {
+                if (line.LineNumber < 10)
+                {
+                    lineText = $"00{line.LineNumber}: '{line.RawValue}'";
+                }
+                else if (line.LineNumber < 100)
+                {
+                    lineText = $"0{line.LineNumber}: '{line.RawValue}'";
+                }
+                else
+                {
+                    lineText = $"{line.LineNumber}: '{line.RawValue}'";
+                }
+
+                Console.Write(lineText);
+
+                var lineTextWithPaddingLen = 40;
+                var requiredPaddingLen = lineTextWithPaddingLen - lineText.Length;
+                var padding = new string(' ', requiredPaddingLen);
+
+                Console.Write(padding);
+
+                Console.Write($"IsStartOfArray: {line.IsStartOfArray}");
+                Console.Write($"\t\tIsArrayValue: {line.IsArrayValue}");
+                Console.Write($"\t\tHasValue: {line.HasValue}");
+                Console.WriteLine();
+            }
+
+            Console.WriteLine($"*************************");
         }
 
         private void AssertYamlElement(List<YamlElement> actuals, int index, string expectedName, int expectedLineNumber, int expectedChildCount)

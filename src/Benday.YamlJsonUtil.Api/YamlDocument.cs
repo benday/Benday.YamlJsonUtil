@@ -4,30 +4,40 @@ using System.Linq;
 
 namespace Benday.YamlJsonUtil.Api
 {
-
-    public class YamlDocument
+    public class YamlDocument : IYamlParent
     {
         public YamlDocument()
         {
             Children = new List<YamlElement>();
         }
 
-        public YamlDocument(List<YamlLine> lines) 
+        public YamlDocument(List<YamlLine> lines)
         {
             Children = new List<YamlElement>();
 
-            PopulateElements(lines);
+            var populator = new YamlDocumentPopulator(this, lines);
+
+            populator.Populate();
         }
 
-        private void PopulateElements(List<YamlLine> lines)
+        public int LineNumber
         {
-            var rootLevelLines = (from temp in lines
-            where temp.IndentCount == 0
-            select temp);
-
-            foreach (var line in rootLevelLines)
+            get 
             {
-                Children.Add(new YamlElement(line));
+                return 0;
+            }
+        }
+
+        public YamlElement Parent
+        {
+            get
+            {
+                return null;
+            }
+            set
+            {
+                // nothing
+                throw new InvalidOperationException($"Cannot set parent for document.");
             }
         }
 
